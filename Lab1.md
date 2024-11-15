@@ -106,4 +106,25 @@ Hệ thống Payroll System sẽ sử dụng kiến trúc **Layered (Lớp)** v�
 - **Nhiệm vụ**: Tạo và lưu trữ báo cáo về khoản lương đã trả, dùng cho mục đích báo cáo và kiểm tra.
 
 ### Biểu Đồ Sequence Cho Ca Sử Dụng Payment
-[3.2]
+![3.1](https://www.planttext.com/api/plantuml/svg/P95DJiCm48NtFiMegrHgBv05glYHO5TH9DQECq1KssF6OwIUZGL7uWhOJPnGTUltvdrlnh_VFxiecYKvgxGHOdXmmT89KONyF9WXQ2-mskkJGozx9eCn4gz0HmZXqlGoE3IQ-xCevbAyrVvuGFuQ39xrBbuHcAnzna0iOpmhLTl0zYRZMc3yJ1XbgjEiLGX54jF2EyeZ9Owln4Vi6vmcd-xNIWnivm19xE5ZSKuHHJJQccIrOCtNZfANIkbY2n5zNzK5iO7gxEAC2gFjZlpRm4xBGBwokDJro2DgsRkPPfR43VJPb1lmlnMAzIesg_LQC_kGJFclVATTxbq--Gy00F__0m00)
+
+### Giải Thích Biểu Đồ Sequence
+
+1. **Employee** gửi yêu cầu thanh toán đến **PaymentProcessor** thông qua hàm `requestPayment()`.
+2. **PaymentProcessor** kiểm tra giờ làm việc (nếu cần) bằng cách truy vấn lớp **Timecard** để nhận số giờ đã làm.
+3. **PaymentProcessor** tính toán tổng tiền thanh toán.
+4. Sau đó, **PaymentProcessor** yêu cầu **BankService** xử lý thanh toán đến tài khoản ngân hàng của nhân viên.
+5. **BankService** xác nhận thanh toán thành công, trả kết quả về **PaymentProcessor**.
+6. **PaymentProcessor** tạo báo cáo thanh toán bằng cách gọi **PayrollReport**.
+7. **PayrollReport** xác nhận báo cáo đã hoàn thành.
+8. Cuối cùng, **PaymentProcessor** gửi thông báo thành công về thanh toán đến **Employee**.
+
+### Biểu Đồ Lớp Cho Ca Sử Dụng Payment
+![3.2](https://www.planttext.com/api/plantuml/svg/Z5FDReCm3Bxp53aMgNq13bCtCMcxeRLIpswmEjJyC2UPXAezsGvxfBt2iX8e4D368L9in_v-pFVdrzPO8EkaIBW0OzYZh8Lk4DabOVxRC0o1vpnZEqkLEeM40ecJq17K-PvpxPITP0m8e6RVrECdZ16-EJIsW4QYigiq-KW2aX0gI7CqHbEFg6uJ4I2GxU1SkwF042p1-f6vFyD03e8xuU_To5Vjo1mqdR7itgQZ9X78M981x7qbaGELVmiuCtW9z0djqwrw3a3VeGVouCtO8RrNl3EJCOEgN6QndaWuDeEq42zOQx8zDRfU8s9MMn05LF-WfP1QAsxTLv6_KrphGQShndvfDtVHscJnYaMRvPzrjcLJhUVB1-9c8rNdoqS4imNUQRBrZNv_nHy0003__mC0)
+
+### Giải Thích Biểu Đồ Lớp
+
+1. **Employee** gửi yêu cầu thanh toán đến **PaymentProcessor**, nơi tính toán tổng số tiền cần trả.
+2. **PaymentProcessor** truy vấn **Timecard** để lấy số giờ làm việc của nhân viên nếu họ được trả lương theo giờ.
+3. Sau khi tính toán thanh toán, **PaymentProcessor** gọi **BankService** để gửi tiền vào tài khoản của **Employee**.
+4. **PayrollReport** được gọi để tạo báo cáo thanh toán sau khi quá trình thanh toán hoàn tất.
