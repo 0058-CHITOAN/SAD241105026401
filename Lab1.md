@@ -1,7 +1,7 @@
 # Lab 1: Phân Tích Kiến Trúc, Cơ Chế, Ca Sử Dụng cho Hệ Thống Payroll System
 
 #
-### 1. Phân Tích Kiến Trúc
+## 1. Phân Tích Kiến Trúc
 
 #### 1.1 Đề Xuất Kiến Trúc
 
@@ -67,4 +67,43 @@ Hệ thống Payroll System sẽ sử dụng kiến trúc **Layered (Lớp)** v�
    - Hỗ trợ kiểm toán, tra cứu lịch sử giao dịch và xử lý tranh chấp một cách dễ dàng.
 10. **Quản lý thuế và khấu trừ**:
     - Đảm bảo tính chính xác trong việc trích xuất thuế và các khoản khấu trừ theo quy định, giúp hệ thống tuân thủ pháp lý.
+## 3. Phân Tích Ca Sử Dụng Payment
 
+### Xác Định Các Lớp Phân Tích
+
+Để thực hiện chức năng Payment, chúng ta cần các lớp chính sau:
+
+#### 1. Employee
+- **Thuộc tính**:
+  - `employeeID`: ID của nhân viên
+  - `name`: Tên của nhân viên
+  - `bankAccount`: Tài khoản ngân hàng của nhân viên
+  - `salaryType`: Loại lương của nhân viên (theo giờ hoặc cố định)
+- **Nhiệm vụ**: Lưu trữ thông tin về nhân viên và loại hình lương của họ (theo giờ hoặc cố định).
+
+#### 2. PaymentProcessor
+- **Thuộc tính**:
+  - `paymentID`: ID của khoản thanh toán
+  - `amount`: Số tiền thanh toán
+  - `date`: Ngày thanh toán
+- **Nhiệm vụ**: Thực hiện việc tính toán và xử lý các khoản thanh toán cho nhân viên.
+
+#### 3. Timecard
+- **Thuộc tính**:
+  - `employeeID`: ID của nhân viên
+  - `hoursWorked`: Số giờ làm việc
+  - `date`: Ngày làm việc
+- **Nhiệm vụ**: Ghi nhận số giờ làm việc của nhân viên, dùng cho nhân viên được trả lương theo giờ.
+
+#### 4. BankService
+- **Nhiệm vụ**: Xử lý việc gửi thanh toán đến tài khoản ngân hàng của nhân viên.
+
+#### 5. PayrollReport
+- **Thuộc tính**:
+  - `reportID`: ID của báo cáo
+  - `totalPaid`: Tổng số tiền đã thanh toán
+  - `date`: Ngày tạo báo cáo
+- **Nhiệm vụ**: Tạo và lưu trữ báo cáo về khoản lương đã trả, dùng cho mục đích báo cáo và kiểm tra.
+
+### Biểu Đồ Sequence Cho Ca Sử Dụng Payment
+[3.2]
