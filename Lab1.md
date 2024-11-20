@@ -129,7 +129,7 @@ Hệ thống Payroll System sẽ sử dụng kiến trúc **Layered (Lớp)** v�
 3. Sau khi tính toán thanh toán, **PaymentProcessor** gọi **BankService** để gửi tiền vào tài khoản của **Employee**.
 4. **PayrollReport** được gọi để tạo báo cáo thanh toán sau khi quá trình thanh toán hoàn tất.
 
-### 4. Phân Tích Ca Sử Dụng Maintain Timecard
+## 4. Phân Tích Ca Sử Dụng Maintain Timecard
 
 #### Xác Định Các Lớp Phân Tích
 
@@ -171,6 +171,77 @@ Hệ thống Payroll System sẽ sử dụng kiến trúc **Layered (Lớp)** v�
 ##### Dưới đây là biểu đồ lớp mô tả các lớp phân tích và mối quan hệ giữa các lớp:
 
 ![4.2](https://www.planttext.com/api/plantuml/svg/d98zJiGm48Lxds9AKkG25bgjK2YGe5eGzMpoj5WuzkAVI0XnCWgEn1Lmm0vBmag02yjwC-Fv_3nlBwzh7zY5s6lHQlQUplkzjey0FGbAgoPauQAHj0bEcLqE6ExnJI9oU8ZmuMRVSS2rwj6owqv2FZGSM5AHA_4iSiyYJJrBnQBdKPWx6vs_jUuUdQJ6ngr6ZemeIKfxXXnOgqE-4UiOewGpQpNOB66lsF0EBZF_zzhFslX7myR0bZqsS8DgCJ7yyfxoMSb035_fItCJwANouRIah4Q4QKBgUZLtGypTESoHaqSVtbG_9i-U9kTlgiGQfalp-Wu00F__0m00)
+### Giải Thích Biểu Đồ Lớp
+
+1. **Employee (Nhân Viên):**  
+   - Lớp này chịu trách nhiệm gửi yêu cầu cập nhật hoặc thêm thông tin chấm công.
+
+2. **Timecard (Bảng Chấm Công):**  
+   - Lớp này lưu trữ thông tin về giờ làm việc và ngày làm việc của nhân viên.  
+   - Nó cũng chịu trách nhiệm xác thực dữ liệu chấm công.
+
+3. **TimecardManager (Quản Lý Bảng Chấm Công):**  
+   - Lớp này là nơi xử lý logic, bao gồm việc xác thực dữ liệu và yêu cầu cập nhật dữ liệu vào cơ sở dữ liệu.
+
+4. **DatabaseService (Dịch Vụ Cơ Sở Dữ Liệu):**  
+   - Lớp này lưu trữ và truy vấn thông tin chấm công từ cơ sở dữ liệu, đảm bảo dữ liệu được cập nhật đúng cách.
+
+## 5. Hợp Nhất Kết Quả Phân Tích
+
+### Tổng Quan  
+Sau khi phân tích hai ca sử dụng **Payment** và **Maintain Timecard**, ta có thể hợp nhất kết quả để xây dựng một hệ thống quản lý bảng lương (Payroll System) toàn diện. Các thành phần và lớp phân tích từ hai ca sử dụng sẽ được tích hợp để đảm bảo hệ thống hoạt động mạch lạc, hiệu quả và có khả năng mở rộng.
+
+---
+
+### Các Lớp Phân Tích Hợp Nhất
+
+| **Lớp**              | **Thuộc Tính Chính**                                                                                     | **Nhiệm Vụ**                                                                                  |
+|-----------------------|---------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| **Employee**          | `employeeID`, `name`, `bankAccount`, `salaryType`                                                      | Gửi yêu cầu thanh toán và cập nhật thông tin chấm công.                                        |
+| **Timecard**          | `timecardID`, `employeeID`, `hoursWorked`, `date`                                                      | Lưu trữ và xác thực thông tin chấm công.                                                      |
+| **TimecardManager**   | Không cần thuộc tính.                                                                                   | Xử lý logic: xác thực dữ liệu chấm công, thêm/sửa/xóa thông tin chấm công.                   |
+| **PaymentProcessor**  | `paymentID`, `amount`, `date`                                                                          | Tính toán và xử lý thanh toán cho nhân viên.                                                  |
+| **BankService**       | Không cần thuộc tính.                                                                                   | Thực hiện việc gửi thanh toán đến tài khoản ngân hàng của nhân viên.                         |
+| **PayrollReport**     | `reportID`, `totalPaid`, `date`                                                                        | Tạo và lưu trữ báo cáo thanh toán.                                                            |
+| **DatabaseService**   | Không cần thuộc tính.                                                                                   | Lưu trữ và truy vấn thông tin từ cơ sở dữ liệu (chấm công, thanh toán, nhân viên).            |
+
+---
+
+### Biểu Đồ Lớp Hợp Nhất
+![5.1](https://www.planttext.com/api/plantuml/svg/d5HBReCm4Drp2Y-3b5p0gg8qeb8hjLBKfEfw0YEAOcng6oHKzMHTz4YzGXsm2PYGHcM1y6U6zzwycP-lxvNI87MPio1ce1IvomicQaJo4H3pB0ZQZOU8agsM6K_j0OSSlQqzyCDj78kIQ-z40GDPx-fY64A8nFSIbNuf4j2uotACGIOpRJyYq429smw7CHkeS-Hw5bAo5e8XyE0pi3HSI4V3PHpHcEJt9agfNeKyO4999CezGtjoX6gspDi2ge1bVVn7s5CSBe1z0WufIelvlsdRsF8wGJiCLioD534g9MGdND4UZEI1l2tpPMLYO779pDeLQontECX1ID52k11mGhqsXjkYhB8OEzKKycGwUEu17qeW1MFFM0YfE_woMOxeQw61RI3xqnifSfHcsQQTZUJq0SrxANhWZeNRWqAVxPLrTerZVedLwVhPQZncIj-uAqkdAbIkXX5go9XoLEZ8EmtiRf0i5alVuTI77GP-3_IZQDS9JGUSl-m9H1l4lHyCyFY8wMYc1AE6629AKT-V1iJK_Pu_gM_iYP212wbldp3mZJ15fwsq5MnbUiBC-5y0003__mC0)
+## Tổng Kết
+
+### Kết Nối Giữa Các Lớp
+Kết hợp các lớp từ hai ca sử dụng để tạo ra một hệ thống tích hợp, cho phép:
+- Quản lý thông tin nhân viên.
+- Xử lý bảng chấm công.
+- Thực hiện thanh toán lương.
+
+---
+
+### Tính Năng Chính
+- **Quản lý thông tin chấm công của nhân viên:**  
+  Hệ thống lưu trữ và xác thực thông tin thời gian làm việc của từng nhân viên.  
+
+- **Xử lý và xác nhận thanh toán lương:**  
+  Thực hiện các bước tính toán, gửi thanh toán qua ngân hàng và cập nhật trạng thái.  
+
+- **Tạo báo cáo chi tiết về các khoản thanh toán đã thực hiện:**  
+  Báo cáo bao gồm các thông tin về nhân viên, tổng số tiền đã trả và thời gian thực hiện thanh toán.
+
+---
+
+### Ưu Điểm Của Hệ Thống Hợp Nhất
+- **Hiệu quả:**  
+  Dữ liệu và logic được tích hợp một cách liền mạch, giảm thiểu lỗi và tăng tốc độ xử lý.  
+
+- **Mở rộng:**  
+  Hệ thống có khả năng nâng cấp dễ dàng để thêm các chức năng mới, như quản lý thuế, bảo hiểm hoặc các báo cáo chi tiết hơn.  
+
+- **Độ chính xác:**  
+  Các bước xác thực dữ liệu và quy trình xử lý đều đảm bảo tuân thủ các quy định, giúp giảm thiểu sai sót.
+
+
 
 
 
