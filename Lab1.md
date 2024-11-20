@@ -128,3 +128,49 @@ Hệ thống Payroll System sẽ sử dụng kiến trúc **Layered (Lớp)** v�
 2. **PaymentProcessor** truy vấn **Timecard** để lấy số giờ làm việc của nhân viên nếu họ được trả lương theo giờ.
 3. Sau khi tính toán thanh toán, **PaymentProcessor** gọi **BankService** để gửi tiền vào tài khoản của **Employee**.
 4. **PayrollReport** được gọi để tạo báo cáo thanh toán sau khi quá trình thanh toán hoàn tất.
+
+### 4. Phân Tích Ca Sử Dụng Maintain Timecard
+
+#### Xác Định Các Lớp Phân Tích
+
+Để thực hiện chức năng **Maintain Timecard**, chúng ta cần các lớp chính sau:
+
+1. **Employee**:
+   - **Thuộc tính**: `employeeID`, `name`
+   - **Nhiệm vụ**: Đại diện cho nhân viên, gửi yêu cầu thêm hoặc chỉnh sửa thông tin chấm công.
+
+2. **Timecard**:
+   - **Thuộc tính**: `timecardID`, `employeeID`, `hoursWorked`, `date`
+   - **Nhiệm vụ**: Lưu trữ thông tin chấm công của từng nhân viên.
+
+3. **TimecardManager**:
+   - **Thuộc tính**: Không cần (hoạt động như lớp trung gian xử lý logic).
+   - **Nhiệm vụ**: Thêm mới, chỉnh sửa hoặc xóa thông tin chấm công, xác thực dữ liệu trước khi cập nhật.
+
+4. **DatabaseService**:
+   - **Nhiệm vụ**: Lưu trữ và truy vấn thông tin chấm công từ cơ sở dữ liệu.
+
+---
+
+#### Biểu Đồ Sequence Cho Ca Sử Dụng Maintain Timecard
+
+##### Dưới đây là biểu đồ sequence mô tả luồng xử lý khi nhân viên thêm hoặc cập nhật thông tin chấm công:
+
+![4.1](https://www.planttext.com/api/plantuml/svg/R90z3i8m34RtdC9YAWCNw810m8WOGEmcCSXIavJ4HUhP63WILo2XH8YVrT_xdYtVhxTP50pIsKQX5XzWPTl6zqIgJMFMtA8J6EtOaiPWrkZmH644646q_G-zqizmYO87ZBIbS65DJyOSeb9b8KocMLb3e7D7KUR6RCBAi5JoycR5M2LcG6kuOCC6XNBmGy6a2BLtHmvsd-bIJwjhwDhSBcT_6HBnLWpaOX2Xi7U3AENb_XgS5pxssqvhYh4Qgnavan_x0000__y30000)
+##### Mô tả
+**Nhân viên đăng nhập vào hệ thống.**
+
+**Nhân viên thêm, chỉnh sửa hoặc xóa thông tin trên bảng chấm công.**
+
+**Hệ thống lưu các thay đổi.**
+
+**Nhân viên xác nhận hoàn tất.**
+
+### Biểu Đồ Lớp Cho Ca Sử Dụng Maintain Timecard
+
+##### Dưới đây là biểu đồ lớp mô tả các lớp phân tích và mối quan hệ giữa các lớp:
+
+![4.2](https://www.planttext.com/api/plantuml/svg/d98zJiGm48Lxds9AKkG25bgjK2YGe5eGzMpoj5WuzkAVI0XnCWgEn1Lmm0vBmag02yjwC-Fv_3nlBwzh7zY5s6lHQlQUplkzjey0FGbAgoPauQAHj0bEcLqE6ExnJI9oU8ZmuMRVSS2rwj6owqv2FZGSM5AHA_4iSiyYJJrBnQBdKPWx6vs_jUuUdQJ6ngr6ZemeIKfxXXnOgqE-4UiOewGpQpNOB66lsF0EBZF_zzhFslX7myR0bZqsS8DgCJ7yyfxoMSb035_fItCJwANouRIah4Q4QKBgUZLtGypTESoHaqSVtbG_9i-U9kTlgiGQfalp-Wu00F__0m00)
+
+
+
