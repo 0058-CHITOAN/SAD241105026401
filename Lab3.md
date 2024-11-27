@@ -14,7 +14,7 @@
 
 ### Biểu đồ ngữ cảnh:
 
-[1](https://www.planttext.com/api/plantuml/svg/PD5DQWCn30NWlKyXifeiSe4iIg1JIdUXANIjiGKnyOmLMIxaR5tqIBr2FJzE6BgrFfwUxT_ldqDI5CrzC6Wr2hpq7EADo70vzjOp3WgR3z-JHN4Rm0HgryCZtdeQz2ZHKafH9iJy3zapsSiyNCzQLEmmqOdaorkQYEkCgLrWzrIMxk6ThfcIGctJLF3MRerQs1LNZqQjMOOxXd7BAfBv4LdhDRhmKMyDSuNF66mEg0JBTPjpp98-erp8tM5nGWkQytZMBIdwa0gSMhfk3wVot0yu9Qpwrmcyqa1IGfqvqE36h_e3003__mC0)
+![1](https://www.planttext.com/api/plantuml/svg/PD5DQWCn30NWlKyXifeiSe4iIg1JIdUXANIjiGKnyOmLMIxaR5tqIBr2FJzE6BgrFfwUxT_ldqDI5CrzC6Wr2hpq7EADo70vzjOp3WgR3z-JHN4Rm0HgryCZtdeQz2ZHKafH9iJy3zapsSiyNCzQLEmmqOdaorkQYEkCgLrWzrIMxk6ThfcIGctJLF3MRerQs1LNZqQjMOOxXd7BAfBv4LdhDRhmKMyDSuNF66mEg0JBTPjpp98-erp8tM5nGWkQytZMBIdwa0gSMhfk3wVot0yu9Qpwrmcyqa1IGfqvqE36h_e3003__mC0)
 
 ## Biểu Đồ Ngữ Cảnh của Hệ Thống Con PrintService
 
@@ -27,7 +27,7 @@ PrintService chịu trách nhiệm in phiếu lương và các tài liệu khác
 - **Paycheck**: Dữ liệu được in từ phiếu lương của nhân viên.
 
 ### Biểu đồ ngữ cảnh:
-(2)[https://www.planttext.com/api/plantuml/svg/PD5DQWCn30NWlKyXifeiSe4iIg1JIdUXANIjiGKnyOmLMIxaR5tqIBr2FJzE6BgrFfwUxT_ldqDI5CrzC6Wr2hpq7EADo70vzjOp3WgR3z-JHN4Rm0HgryCZtdeQz2ZHKafH9iJy3zapsSiyNCzQLEmmqOdaorkQYEkCgLrWzrIMxk6ThfcIGctJLF3MRerQs1LNZqQjMOOxXd7BAfBv4LdhDRhmKMyDSuNF66mEg0JBTPjpp98-erp8tM5nGWkQytZMBIdwa0gSMhfk3wVot0yu9Qpwrmcyqa1IGfqvqE36h_e3003__mC0]
+![2](https://www.planttext.com/api/plantuml/svg/PD5DQWCn30NWlKyXifeiSe4iIg1JIdUXANIjiGKnyOmLMIxaR5tqIBr2FJzE6BgrFfwUxT_ldqDI5CrzC6Wr2hpq7EADo70vzjOp3WgR3z-JHN4Rm0HgryCZtdeQz2ZHKafH9iJy3zapsSiyNCzQLEmmqOdaorkQYEkCgLrWzrIMxk6ThfcIGctJLF3MRerQs1LNZqQjMOOxXd7BAfBv4LdhDRhmKMyDSuNF66mEg0JBTPjpp98-erp8tM5nGWkQytZMBIdwa0gSMhfk3wVot0yu9Qpwrmcyqa1IGfqvqE36h_e3003__mC0)
 
 ## Biểu Đồ Ngữ Cảnh của Hệ Thống Con ProjectManagementDatabase
 ### Mô tả hệ thống con:
@@ -37,5 +37,5 @@ ProjectManagementDatabase chứa thông tin về các dự án và mã số dự
 - **Timecard**: Truy xuất thông tin dự án và mã số dự án từ ProjectManagementDatabase để liên kết giờ làm việc với các dự án.
 - **ProjectManagementDatabase**: Lưu trữ và cung cấp thông tin về dự án và mã số dự án.
 ### Biểu đồ ngữ cảnh:
-(3)[https://www.planttext.com/api/plantuml/svg/PD5DQWCn30NWlKyXifeiSe4iIg1JIdUXANIjiGKnyOmLMIxaR5tqIBr2FJzE6BgrFfwUxT_ldqDI5CrzC6Wr2hpq7EADo70vzjOp3WgR3z-JHN4Rm0HgryCZtdeQz2ZHKafH9iJy3zapsSiyNCzQLEmmqOdaorkQYEkCgLrWzrIMxk6ThfcIGctJLF3MRerQs1LNZqQjMOOxXd7BAfBv4LdhDRhmKMyDSuNF66mEg0JBTPjpp98-erp8tM5nGWkQytZMBIdwa0gSMhfk3wVot0yu9Qpwrmcyqa1IGfqvqE36h_e3003__mC0]
+![3](https://www.planttext.com/api/plantuml/svg/PD5DQWCn30NWlKyXifeiSe4iIg1JIdUXANIjiGKnyOmLMIxaR5tqIBr2FJzE6BgrFfwUxT_ldqDI5CrzC6Wr2hpq7EADo70vzjOp3WgR3z-JHN4Rm0HgryCZtdeQz2ZHKafH9iJy3zapsSiyNCzQLEmmqOdaorkQYEkCgLrWzrIMxk6ThfcIGctJLF3MRerQs1LNZqQjMOOxXd7BAfBv4LdhDRhmKMyDSuNF66mEg0JBTPjpp98-erp8tM5nGWkQytZMBIdwa0gSMhfk3wVot0yu9Qpwrmcyqa1IGfqvqE36h_e3003__mC0)
 
