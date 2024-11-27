@@ -50,4 +50,15 @@ Hiển thị lịch sử thanh toán lương của nhân viên.
 2. Hiển thị thông tin cho nhân viên qua giao diện `PayrollReport`.
    
 #### Code Java Mô Phỏng Ca Sử Dụng Maintain Timecard
+```Java
+public class Employee {
+    private String employeeID;
 
+    public Employee(String employeeID) {
+        this.employeeID = employeeID;
+    }
+
+    public String getEmployeeID() {
+        return employeeID;
+    }
+}
