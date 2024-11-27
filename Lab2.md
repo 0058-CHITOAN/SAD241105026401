@@ -16,7 +16,9 @@ Tạo và lưu trữ phiếu lương cho nhân viên dựa trên thông tin bả
 1. Hệ thống truy xuất bảng chấm công từ lớp `Timecard` dựa trên `EmployeeID`.
 2. Hệ thống tính toán lương dựa trên số giờ làm việc từ bảng chấm công.
 3. Phiếu lương được tạo và lưu trữ vào cơ sở dữ liệu.
+### Biểu đồ Sequence:
 
+![1](https://www.planttext.com/api/plantuml/svg/PD5DQWCn30NWlKyXifeiSe4iIg1JIdUXANIjiGKnyOmLMIxaR5tqIBr2FJzE6BgrFfwUxT_ldqDI5CrzC6Wr2hpq7EADo70vzjOp3WgR3z-JHN4Rm0HgryCZtdeQz2ZHKafH9iJy3zapsSiyNCzQLEmmqOdaorkQYEkCgLrWzrIMxk6ThfcIGctJLF3MRerQs1LNZqQjMOOxXd7BAfBv4LdhDRhmKMyDSuNF66mEg0JBTPjpp98-erp8tM5nGWkQytZMBIdwa0gSMhfk3wVot0yu9Qpwrmcyqa1IGfqvqE36h_e3003__mC0)
 ---
 
 ## Ca Sử Dụng: **Process Direct Deposit**
@@ -33,6 +35,8 @@ Xử lý gửi tiền lương trực tiếp đến tài khoản ngân hàng củ
 1. Hệ thống lấy thông tin tài khoản ngân hàng từ lớp `Employee`.
 2. Hệ thống xác nhận và gửi yêu cầu thanh toán đến hệ thống `BankSystem`.
 3. `BankSystem` phản hồi kết quả giao dịch và xác nhận thanh toán thành công.
+### Biểu đồ Sequence:
+![]()
 
 ---
 
@@ -48,7 +52,8 @@ Hiển thị lịch sử thanh toán lương của nhân viên.
 ### Luồng cơ bản:
 1. Hệ thống truy xuất lịch sử phiếu lương từ lớp `Paycheck`.
 2. Hiển thị thông tin cho nhân viên qua giao diện `PayrollReport`.
-   
+### Biểu đồ Sequence:
+![]()
 #### Code Java Mô Phỏng Ca Sử Dụng Maintain Timecard
 ```Java
 public class Employee {
