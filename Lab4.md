@@ -86,3 +86,6 @@
   - #### Các phân hệ (Subsystem) như `BankSystem`, `PrintService` được thiết kế thành các giao diện độc lập, dễ dàng tái sử dụng trong các hệ thống khác.
 - #### Đáp ứng yêu cầu người dùng
   - #### Căn cứ trên tài liệu, các ca sử dụng đã bao phủ toàn bộ quy trình hoạt động của hệ thống tính lương.
+ ### Tích hợp và mở rộng
+  - #### Hệ thống cần khả năng tích hợp với các dịch vụ ngân hàng hoặc hệ thống quản lý tài chính bên ngoài.
+  - #### Dễ dàng mở rộng để thêm các tính năng như quản lý thuế, bảo hiểm xã hội.
