@@ -1,7 +1,7 @@
 # Tài liệu thiết kế ca sử dụng - Payroll System
 
 ## 1. Tổng quan yêu cầu
-Dựa trên kết quả từ **Lab2** (phân tích ca sử dụng) và **Lab3** (phần tử thiết kế), hệ thống cần hỗ trợ các tính năng chính:
+
 1. **Quản lý thông tin nhân viên.**
 2. **Quản lý chấm công.**
 3. **Tính toán và phê duyệt bảng lương.**
