@@ -1,4 +1,4 @@
-# Lab 1: Phân Tích Kiến Trúc, Cơ Chế, Ca Sử Dụng cho Hệ Thống Payroll System
+# 📑**Lab 1: Phân Tích Kiến Trúc, Cơ Chế, Ca Sử Dụng cho Hệ Thống Payroll System**
 
 #
 ## 1. Phân Tích Kiến Trúc
