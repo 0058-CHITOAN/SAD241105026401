@@ -1,241 +1,140 @@
-# 📑**Lab 3. Identify design elements**
+# **Thiết kế hệ thống Payroll System**
 
-# 1. **Biểu Đồ Ngữ Cảnh của Hệ Thống Con BankSystem**
+## **1. Biểu đồ ngữ cảnh các hệ thống con**
 
-### Mô tả hệ thống con:
-### **BankSystem** là hệ thống phụ có trách nhiệm xử lý các giao dịch thanh toán lương thông qua chuyển khoản trực tiếp vào tài khoản ngân hàng của nhân viên.
+### **Hệ thống con BankSystem**
 
-### Các thành phần và giao diện:
-### 1.1. PayrollSystem (Control Class)
-- **Vai trò**: Là lớp điều khiển chính (controller) trong hệ thống xử lý lương.
-- **Chức năng**: Gửi các yêu cầu **Payment Instructions** (hướng dẫn thanh toán) đến giao diện trung gian `IBankService`.
+![BankSystem](https://www.planttext.com/api/plantuml/png/UhzxlqDnIM9HIMbk3bTYSab-aO9IG69bKNvEZa9mPN59QgwIGcAn0bI8ApMl9BEaKa79AJ4l6raUnEVYWcdKrRK3YoXOARW_tBqsKw7oyAfIXUI7kvQNAgHd9kOhf3pStPsSmGLM0r8CqsYb493nSDVYF8MCXxidPwAeTKZDIm6v4G000F__0m00)
 
----
-
-### 1.2. IBankService (Interface)
-- **Vai trò**: Giao diện trung gian giữa lớp điều khiển (`PayrollSystem`) và hệ thống con thực tế (`BankSystem`).
-- **Phương thức cung cấp**:
-  - `processPayment(aInstruction: PaymentInstruction)`: Xử lý yêu cầu thanh toán.
-  - `getAccountBalance(): AccountBalance`: Truy vấn số dư tài khoản ngân hàng.
-  - `sendStatement(aStatement: BankStatement)`: Gửi bảng sao kê ngân hàng.
+#### **Mô tả:**
+- **Chức năng**:
+  - Gửi lệnh chuyển khoản từ hệ thống Payroll.
+  - Nhận xác nhận hoặc thông báo lỗi từ ngân hàng.
+- **Interfaces**:
+  - **Input**: Giao thức chuyển khoản (PaymentCommand).
+  - **Output**: Phản hồi giao dịch (PaymentResponse).
 
 ---
 
-### 1.3. BankSystem (Subsystem Proxy)
-- **Vai trò**: Là lớp đại diện cho hệ thống con thực tế, nơi thực hiện các chức năng tài chính liên quan.
-- **Mối quan hệ**:
-  - Thực thi giao diện `IBankService`.
-- **Phương thức cung cấp**:
-  - `processPayment(aInstruction: PaymentInstruction)`: Thực hiện logic xử lý thanh toán thực tế.
-  - `getAccountBalance(): AccountBalance`: Cung cấp số dư tài khoản.
-  - `sendStatement(aStatement: BankStatement)`: Gửi bảng sao kê chi tiết cho các giao dịch.
+### **Hệ thống con PrintService**
+
+![PrintService](https://www.planttext.com/api/plantuml/png/L8yn2eCm68NtdEBXxWKSYaSGd3e66veVOYpnJy5pz0JIeT2fSnmS1E-H4_GArTOEhj_xteFt7iQyPUdOrqR8YXk7f92TQun1sRMiwWIonOQ4iapSBOeZooYLkrAbViPADY34Vo9D3xi46OxJqwEAuU515XTDCOmUPdxDlJsBdVnjRqiP2Xt3tKB7uKPW5yFYW_NKayYLFQq7FW000F__0m00)
+
+
+#### **Mô tả:**
+- **Chức năng**:
+  - Nhận yêu cầu in phiếu lương từ Payroll System.
+  - Trả về trạng thái hoàn thành hoặc lỗi khi in.
+- **Interfaces**:
+  - **Input**: PrintRequest.
+  - **Output**: PrintStatus.
 
 ---
 
-### 1.4. PaymentInstruction (Entity)
-- **Vai trò**: Là thực thể chứa thông tin chi tiết về hướng dẫn thanh toán (Payment Instructions).
-- **Dữ liệu chứa**:
-  - Thông tin tài khoản người nhận.
-  - Số tiền cần thanh toán.
-  - Thời gian thực hiện.
+### **Hệ thống con ProjectManagementDatabase**
+
+![ProjectManagementDatabase](https://www.planttext.com/api/plantuml/png/UhzxlqDnIM9HIMbk3bTYSab-aO9IG69bKNvEZa9mPN59QgwIGcAn0bI8ApMl9BEa4gYaA3yhDRb4mJSnBp4zDHSehE2IM9AOb5YS2b4FaNTnukA2cQQhQuSGLh1IY3oygbGX-U6kvQKAkOSNAwGytBrHuV32F2w46h0Eg6uhXP2YXxiMAvGztDseK99nU4jUka99PXv2cqDgNWh83m00003__mC0)
+
+
+#### **Mô tả:**
+- **Chức năng**:
+  - Cung cấp danh sách mã dự án và thông tin liên quan.
+- **Interfaces**:
+  - **Input**: ProjectQuery.
+  - **Output**: ProjectData.
 
 ---
 
-### 1.5. PaymentConfirmation (Entity)
-- **Vai trò**: Là thực thể xác nhận giao dịch đã hoàn tất.
-- **Dữ liệu chứa**:
-  - Trạng thái giao dịch (thành công hoặc thất bại).
-  - Mã xác nhận giao dịch.
+## **2. Ánh xạ các lớp phân tích đến phần tử thiết kế**
+
+| **Analysis Class**         | **Design Element**       |
+|----------------------------|----------------------------|
+| Employee                  | EmployeeEntity            |
+| Timecard                  | TimecardEntity            |
+| PaymentMethod             | PaymentProcessorInterface |
+| Payroll Administrator     | AdminService              |
+| Project Management System | ProjectManagementService  |
 
 ---
 
-### 1.6. AccountBalance (Entity)
-- **Vai trò**: Là thực thể đại diện cho số dư tài khoản ngân hàng.
-- **Dữ liệu chứa**:
-  - Số tiền hiện tại trong tài khoản.
-  - Ngày cập nhật số dư gần nhất.
+## **3. Ánh xạ phần tử thiết kế vào các gói**
+
+| **Design Element**       | **Owning Package**        |
+|----------------------------|---------------------|
+| EmployeeEntity            | `com.payroll.model` |
+| TimecardEntity            | `com.payroll.model` |
+| PaymentProcessorInterface | `com.payroll.utils` |
+| AdminService              | `com.payroll.service` |
+| ProjectManagementService  | `com.payroll.service` |
 
 ---
 
-### 1.7. BankStatement (Entity)
-- **Vai trò**: Là thực thể lưu trữ thông tin chi tiết về các giao dịch tài chính của tài khoản ngân hàng.
-- **Dữ liệu chứa**:
-  - Danh sách các giao dịch.
-  - Số dư đầu kỳ và cuối kỳ.
-  - Ngày thực hiện giao dịch.
+## **4. Các lớp kiến trúc và quan hệ**
 
+### **Biểu đồ phân lớp**
+![OverView](https://www.planttext.com/api/plantuml/png/V9E_Jjn04CPxFyM89XKlG15n48YGxX1II8LI37iRUy4UE_ldX8MeA6YXZb8S4eg4X18agdD1OSHxx1Fm2eonm_aSWykP_NxxpJVhf-9-rLZKrYLnaA4un532qewMHf95grA28UPIBy5n0FpjVJLImnPPgR-ZaD_guZ0D5S5cgfEciAiIAL2Fczf9C6SFiYnMeW_TxdoHUg8gVbkwvemYQSo_hka0TZ3NQHpFnNLLfmTIM1WXCINXkVhfdz0Y38IeBbZaLfrzDBBfDjoD98lJN4gesfsxwbARld74aH6okTnOcPXN-1hIOLDyXQYEnmymyiM5WXyE2I9Vd46eVF47GPHJ0R4lVcP1TpEmlFonFrDOWS--k56GbzSEX9_zTa5xXUyg7yuVJYa4YlpiXYzTN7IjxAw1LTilny6ozr-ApIC5_nzx4NUpPl6kTZaSEJ-xiZ3ciI7cuSySUoWl2IQgl7wJrWwNIUkHotrnIX0__dsSKXYyzpYQOTeRPSIGRUGyI7d7ALYEZ1tTGZbzqyBYDfcmHP15oi_ktTn6RzZr1Frllc-9G65K9PF1n1TNmQgaSVLNFmC00F__0m00)
+
+
+## Mô tả các lớp kiến trúc trong hệ thống
+### 4.1. Lớp Giao diện Người dùng
+
+- **Chức năng**: Lớp này chịu trách nhiệm giao tiếp với người dùng và hiển thị giao diện người dùng.
+- **Các thành phần**:
+  - **User Interface**: Hiển thị các form như đăng nhập, bảng chấm công, thông tin nhân viên.
+  - **Login Form**: Giao diện đăng nhập để người dùng có thể xác thực.
+  - **Timecard Form**: Giao diện nhập bảng chấm công cho nhân viên.
+
+### 4.2. Lớp Ứng dụng
+
+- **Chức năng**: Xử lý các yêu cầu từ lớp Presentation và điều phối các dịch vụ của hệ thống.
+- **Các thành phần**:
+  - **Application Service**: Lớp này điều phối các yêu cầu giữa lớp giao diện người dùng và các dịch vụ nghiệp vụ.
+
+### 4.3. Lớp Dịch vụ Nghiệp vụ
+
+- **Chức năng**: Chứa các logic nghiệp vụ chính của hệ thống, bao gồm tính toán lương và các dịch vụ liên quan đến dự án.
+- **Các thành phần**:
+  - **Payroll Service**: Xử lý các yêu cầu liên quan đến tính toán lương và các dịch vụ liên quan.
+  - **Project Management Service**: Xử lý thông tin về các dự án mà nhân viên tham gia.
+
+### 4.4. Lớp Truy cập Dữ liệu
+
+- **Chức năng**: Truy cập và thao tác với cơ sở dữ liệu để lưu trữ và lấy dữ liệu.
+- **Các thành phần**:
+  - **Database Access**: Cung cấp các phương thức để truy xuất và thao tác với cơ sở dữ liệu.
+  - **Employee Data**: Lưu trữ thông tin về nhân viên.
+  - **Project Data**: Lưu trữ thông tin về dự án và các bảng chấm công.
+
+### 4.5. Lớp Hệ thống Ngoài
+
+- **Chức năng**: Tích hợp với các hệ thống ngoài để thực hiện các nhiệm vụ như chuyển tiền và in ấn phiếu lương.
+- **Các thành phần**:
+  - **Bank System**: Hệ thống ngân hàng, xử lý các giao dịch chuyển tiền lương cho nhân viên.
+  - **Print Service**: Hệ thống in phiếu lương, gửi phiếu lương cho nhân viên.
+
+### 4.6. Mối Quan Hệ Giữa Các Lớp
+
+Các lớp trong hệ thống có mối quan hệ như sau:
+- **User Interface** gửi yêu cầu đến **Application Service** để xử lý.
+- **Payroll Service** tương tác với **Database Access** để truy xuất dữ liệu nhân viên và bảng chấm công.
+- **Bank System** được gọi từ **Payroll Service** để thực hiện giao dịch chuyển lương cho nhân viên.
+- **Print Service** được gọi từ **Payroll Service** để in phiếu lương.
 ---
+# 5. Trình bày tài liệu thiết kế
 
-### Biểu đồ ngữ cảnh:
+Tài liệu thiết kế chi tiết sẽ trình bày các phần tử của hệ thống, mô tả các lớp và mối quan hệ giữa chúng, cùng với các biểu đồ UML để giúp hiểu rõ cách thức các thành phần tương tác.
 
-![1](https://www.planttext.com/api/plantuml/png/pLEnJiCm4Dqj-H-iCj0CKVSgYaeHGoI6YaoCnhYjXMD7lWiG0V-ExP8qRWipsvtzxkwzy_CAa3li6at9DRkr1ftreT0SWCqslFUfhdj0sSmO1vQSiA8GXugoP1-KCBPOC93cEU8QQP1L1j1r0fKrGCaN9M5CPL2wBHUI4ZM4h5fpyr9BzwfyKXGZPcZTEYiam4_ZEPzqPijXtkGm2qKxYJT2sCxWccjkX9nd7fmU1LmWNIFtccBlCVJWI6l8ir53tJt1OGaRPz_xSMKHVjpNCVMQOAnfGurNTdMlTdjyb5hRjtyfyywWmb7T-NYlIaP8MPw0l9UsoZNy5rHAxW8W8PJS1ruFKiVEi5UjDrPgopmlKpij_tHbwhpFF9-y6YMJ5mnzBwWxmvmk_kGwKKR9obEB_-yR "BankSystem")
+## 5.1. Các phần tử thiết kế
 
-# Biểu Đồ Ngữ Cảnh của Hệ Thống Con PrintService
+### Các lớp trong hệ thống:
 
-### Mô tả hệ thống con:
-## PrintService là một hệ thống con trong Payroll System, chịu trách nhiệm xử lý các yêu cầu in ấn. Cụ thể, nó đảm nhận việc nhận tài liệu cần in (như phiếu lương) và tương tác với máy in để hoàn tất quá trình in.
+1. **Presentation Layer**: Chứa giao diện người dùng và các form nhập liệu.
+2. **Application Layer**: Xử lý các yêu cầu và điều phối hoạt động giữa các lớp.
+3. **Business Services Layer**: Chứa các dịch vụ tính toán lương và quản lý dự án.
+4. **Data Access Layer**: Xử lý các yêu cầu truy cập và lưu trữ dữ liệu.
+5. **External Systems**: Tích hợp với các hệ thống ngoài như ngân hàng và in ấn.
 
-
-### **Chi Tiết Thành Phần và Giao Diện**
-
-### **1. Interface: `IPrintService`**
-## **Vai trò**
-- Giao diện trừu tượng cho các chức năng in ấn.
-
-### **Phương thức**
-- printDocument(aDocument: Document, onPrinter: Printer): void
-  - Yêu cầu in một tài liệu (`Document`) trên một máy in (`Printer`).
-
----
-
-### **2. Subsystem Proxy: `PrintService`**
-## **Vai trò**
-- Hệ thống con thực tế chịu trách nhiệm xử lý các yêu cầu in ấn.
-
-## **Chức năng**
-1. `printDocument(document: Document, printer: Printer): void`
-   - Thực thi việc in tài liệu.
-2. `checkPrintStatus(printerId: String): String`
-   - Kiểm tra trạng thái của máy in dựa trên `printerId`.
-
-## **Quan hệ**
-- **Tương tác với `Document`**: Xử lý các tài liệu cần in.
-- **Tương tác với `Printer`**: Gửi tài liệu đến máy in.
-
----
-
-### **3. Entity: `Document`**
-## **Vai trò**
-- Đại diện cho tài liệu cần in.
-
-## **Thuộc tính**
-- `documentId: String`
-  - Mã định danh tài liệu.
-- `content: String`
-  - Nội dung của tài liệu.
-- `format: String`
-  - Định dạng (format) của tài liệu (ví dụ: PDF, DOCX).
-
-## **Phương thức**
-- `validateDocument(): boolean`
-  - Kiểm tra tính hợp lệ của tài liệu trước khi in.
-
----
-
-### **4. Entity: `Printer`**
-## **Vai trò**
-- Đại diện cho máy in trong hệ thống.
-
-## **Thuộc tính**
-- `printerId: String`
-  - Mã định danh máy in.
-- `status: String`
-  - Trạng thái của máy in (ví dụ: "Online", "Busy", "Offline").
-- `location: String`
-  - Vị trí của máy in.
-
-## **Phương thức**
-- `printDocument(document: Document): void`
-  - In tài liệu đã được cung cấp.
-
----
-
-### Biểu đồ ngữ cảnh:
-![2](https://www.planttext.com/api/plantuml/png/Z9DDRi8m48NtEOML5KWD1uYgYWLTP8UK4mpEG2qSEx8d4QZbP5rm9AvGvyUDGr2fLoFFyyoNDvFRztLj2GpLfOmgu4Su88lpUcVFbh1aMwDFvvXzHimTBi5QToKKvMWQmN58zATg4nlDwn8LBOeXI9c_UkaLQDA-1ffboXejYg06_q1-x3iGK6qNmvEiI5bEBZuiVT2zkaINQEH-LoJe3jTtdw1wkB5ioA1TnnPybjbhKy8yaIH986f0YW88Vvrmn3kj9O8QaE_DH3FtCVpa86SxLnuafEP0GgidSCzc54vawctMCks1exTN-0kM_NCbOFDW9xJQ_h4L7SEaV9AyZJDDMLmPpT5QjF5SvzrrihfJJ4bVlrQhwJexeIWhYMrn9r-ZAjeVumS00F__0m00)
-
-## Biểu Đồ Ngữ Cảnh của Hệ Thống Con ProjectManagementDatabase
-### Mô tả hệ thống con:
-ProjectManagementDatabase chứa thông tin về các dự án và mã số dự án (charge numbers) mà nhân viên làm việc, giúp liên kết thời gian làm việc với các dự án cụ thể.
-
-### Các thành phần và giao diện:
-- # 1. PayrollController
-**Loại**: Control  
-**Vai trò**:  
-Là lớp điều khiển, chịu trách nhiệm gọi các phương thức từ `IProjectDatabase` để truy vấn thông tin dữ liệu dự án.  
-**Phương thức chính**: 
-- `queryProjectData()`
-
----
-
-# 2. IProjectDatabase
-**Loại**: Interface  
-**Vai trò**:  
-Là giao diện định nghĩa các chức năng cần thiết để truy xuất thông tin dự án từ cơ sở dữ liệu.  
-**Phương thức**: 
-- `getProjectInfo(projectId: String): ProjectData`  
-Lấy thông tin dự án dựa trên ID dự án.
-
----
-
-# 3. ProjectManagementDatabase
-**Loại**: Subsystem Proxy  
-**Vai trò**:  
-Là hệ thống con thực tế, triển khai giao diện `IProjectDatabase`.  
-Thực hiện truy xuất dữ liệu dự án.  
-**Phương thức**:
-- `getProjectInfo(projectId: String): ProjectData`
-
----
-
-# 4. ProjectData
-**Loại**: Entity  
-**Vai trò**:  
-Đại diện cho dữ liệu của một dự án trong hệ thống.  
-**Thuộc tính và chi tiết của `ProjectData`** có thể bao gồm:
-- `projectId`: ID của dự án.
-- Các thông tin khác về dự án như tên, mô tả, trạng thái, hoặc tiến độ.
-
-### Biểu đồ ngữ cảnh:
-![3](https://www.planttext.com/api/plantuml/png/f5AzJiCm4Dxz5ASoq0vHzwgoAW5392fLT6Ay9jVKoB63VG4YuCaOU2HU0Rj98qiPkztvFdr_yj_FxyOpEcvhBMxXpXfsLej2e_Smss4NDZsyQd8pG0-JLrYlYtwH4Zu5m789hosvRkVi2nLyZuppXVWMGI4tJEw81GbrcI1FS0Vq5FX6sC1O4G-Wt1pjl1dc4bQmPwTCjGXJGjEBxTk3xpnJ7KyVtHYhnstHO4KrcL6uZxTDVFYHeOaCmStDewfE_4nQs_Shh3qOLdnnb5o39frFKaRO4sbaPOq_gSQBQVDP9gVrhSxjA_9GHiOtXM9QyLUM9L55aZfofdutPChuFVu1003__mC0 )
-
-# *2.Analysis class to design element map*
-
-### Mapping Analysis Classes to Design Elements
-
-| **Analysis Class**             | **Design Element**              |
-|--------------------------------|---------------------------------|
-| **LoginForm**                  | **LoginForm**                   |
-| **MaintainTimecardForm**       | **MainEmployeeForm**            |
-|                                | **TimecardForm**                |
-|                                |  **MainApplicationForm**        |
-| **TimecardController**         | **TimecardController**          |
-| **SystemClockInterface**       | **SystemClockInterface**        |
-| **PayrollController**          | **PayrollController**           |
-| **Paycheck**                   | **Paycheck**                    |
-| **PaymentInstruction**         | **PaymentInstruction**          |
-| **Employee**                   | **Employee**                    |
-| **IEmployeeRepository**        | **IEmployeeRepository**         |
-| **IPaymentRepository**         | **IPaymentRepository**          |
-| **BankSystem**                 | **BankSystem**                  |
-| **IBankSystem**                | **IBankSystem**                 |
-| **ProjectManagementDatabase**  | **ProjectManagementDatabase**   |
-| **IProjectDatabase**           | **IProjectDatabase**            |
-| **ProjectData**                | **ProjectData**                 |
-
-# **3. Design element to owning package map**
-
-### Mapping Design Elements to Owning Packages
-
-
-| **Design Element**        | **"Owning" Package**                        |
-|---------------------------|--------------------------------------------|
-| **UserInterface**          | Middleware::Presentation::GUI Framework    |
-| **PayrollController**      | Applications::Payroll::BusinessLogic       |
-| **TimecardController**     | Applications::Payroll::BusinessLogic       |
-| **EmployeeRepository**     | DataAccess::Employee::Repository           |
-| **PaymentRepository**      | DataAccess::Payment::Repository            |
-| **Database**               | DataAccess::Database::Connection           |
-| **Paycheck**               | BusinessServices::Payroll::Artifacts       |
-| **PaymentInstruction**     | BusinessServices::Payroll::Artifacts       |
-| **IEmployeeRepository**    | Interfaces::Employee::RepositoryInterface  |
-| **IPaymentRepository**     | Interfaces::Payment::RepositoryInterface   |
-| **IBankSystem**            | Interfaces::Bank::SystemInterface          |
-| **IProjectDatabase**       | Interfaces::Project::DatabaseInterface     |
-| **BankSystem**             | Subsystems::Bank::PaymentProcessing        |
-| **ProjectManagementDatabase** | Subsystems::Project::DatabaseManagement |
-| **ProjectData**            | BusinessServices::Project::DataArtifacts   |
-
-
-# **4. Architectural layers and their dependencies**
-![PlanText](https://www.planttext.com/api/plantuml/png/X59BJiCm4Dtx54Cth7g1Bb1_4Pk0AW8769nfCNNioEDKYe2JiU18N04xAKb_KRsnv9dtbN-_VwRiqVcgqE8cfxKo14_9uddsU9yc83Ko2t4BotQYiIR7eaIvnGt1QEM8oNZqoXf8ut047mB2wJbMM3khzS8Q7szoualq3FEA0p4pf7QZv227KyPdv7PAqibeZcQRrUofECFOTvB-0KqGAeBB9NfyHQOZ_VW8CoaR2vV5awBKjgPJuP2BjIeZMzUF8zrqmM-gP76M7CRZpxkZC3215wR1rJxSbSN1i1tkKBIt4V0JoCZa37bimbjneDdi_SSFYq4b5aKCPMj33EjUmEvK7g4jfD6xXjztl0_HGPLPss0L96fPXSP9J4E4-8N_0000__y30000")
+### Giao diện giữa các lớp:
+- **Application Service** giao tiếp với các dịch vụ nghiệp vụ trong **Business Services Layer**.
+- **Payroll Service** giao tiếp với **Bank System** và **Print Service**.
 
